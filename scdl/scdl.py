@@ -748,6 +748,10 @@ def download_track(client: SoundCloud, track: BasicTrack, playlist_info=None, ex
         # Try to change the real creation date
         filetime = int(time.mktime(track.created_at.timetuple()))
         try_utime(filename, filetime)
+        with open("playlist.m3u8", 'a+') as playlist_thing:
+            playlist_thing.write(f"{filename}\n")
+            playlist_thing.close()
+
 
         logger.info(f"{filename} Downloaded.\n")
     except SoundCloudException as err:
